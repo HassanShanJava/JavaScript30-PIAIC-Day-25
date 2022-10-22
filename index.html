@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Understanding JavaScript's Capture</title>
+  </head>
+  <body class="bod">
+    <div class="one">
+      <div class="two">
+        <div class="three"></div>
+      </div>
+    </div>
+
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      div {
+        width: 100%;
+        padding: 100px;
+      }
+
+      .one {
+        background: thistle;
+      }
+
+      .two {
+        background: mistyrose;
+      }
+
+      .three {
+        background: coral;
+      }
+    </style>
+
+    <button>Only Once bro</button>
+    <script>
+      // propigation
+      // bubbling => you click one thing, it zooms out so you click alll
+
+      // once
+
+      const divs = document.querySelectorAll("div");
+      const button = document.querySelector('button');
+
+      function logText(e) {
+        // console.log(this.classList.value);
+        // console.log(this);
+        // stops bubbling
+        e.stopPropagation()
+      }
+
+
+      document.body.addEventListener('click',logText)
+
+
+      // 3 option
+      divs.forEach(div => div.addEventListener("click", logText, {
+        // default is false
+        capture:true,
+        // unbins itself
+        once:true, 
+
+      }));
+
+
+      // normally for store checkouts
+      button.addEventListener("click",()=>{
+        console.log("clicked great work");
+      },{
+        once:true
+      })
+
+
+
+
+    </script>
+  </body>
+</html>
